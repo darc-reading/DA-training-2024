@@ -461,7 +461,11 @@ def one4dvar(t, xb_traj, tobs, y_traj, H, invB, invR, TL_type, purpose="DA", sta
         ymp_traj = np.zeros([ny, nobt])
         for time in range(nobt):
             # This observation is at tobs[time]; what index in t does this correspond to?
+<<<<<<< HEAD
             tindex = np.where(np.isclose(t, tobs[time], rtol=0., atol=1e-7))[0][0]
+=======
+            tindex = np.isclose(t, tobs[time], rtol=0., atol=1e-7)
+>>>>>>> 9cd414b52b494535c0f9b10d7aeca5284f20a0d9
             # tindex = find_in_array(t, tobs[time], 0.0000001)
             # Compute the perturbation in model observations at this time
             ymp_traj[:, time] = H@xp_traj[:, tindex]
@@ -489,7 +493,11 @@ def one4dvar(t, xb_traj, tobs, y_traj, H, invB, invR, TL_type, purpose="DA", sta
         ymp_traj = np.zeros([ny, nobt])
         for time in range(nobt):
             # This observation is at tobs[time]; what index in t does this correspond to?
+<<<<<<< HEAD
             tindex = np.where(np.isclose(t, tobs[time], rtol=0., atol=1e-7))[0][0]
+=======
+            tindex = np.isclose(t, tobs[time], rtol=0., atol=1e-7)
+>>>>>>> 9cd414b52b494535c0f9b10d7aeca5284f20a0d9
             # tindex = find_in_array(t, tobs[time], 0.0000001)
             # Compute the perturbation in model observations at this time
             ymp_traj[:, time] = H@xp_traj[:, tindex]
@@ -532,7 +540,11 @@ def one4dvar(t, xb_traj, tobs, y_traj, H, invB, invR, TL_type, purpose="DA", sta
     # Compute the model observations of the reference trajectory
     for time in range(nobt):
         # This observation is at tobs[time]; what index in t does this correspond to?
+<<<<<<< HEAD
         tindex = np.where(np.isclose(t, tobs[time], rtol=0., atol=1e-7))[0][0]
+=======
+        tindex = np.isclose(t, tobs[time], rtol=0., atol=1e-7)
+>>>>>>> 9cd414b52b494535c0f9b10d7aeca5284f20a0d9
         # tindex = find_in_array(t, tobs[time], 0.0000001)
         ym_traj[:, time] = H @ xb_traj[:, tindex]
 
