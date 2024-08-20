@@ -803,7 +803,7 @@ def plotTimeseriesWithObs(Nx, t, ut, tobs, y, H, ncols, linewidth):
                 axs[irow,icol].set_ylim(xmin,xmax)
             else:
                 axs[irow,icol].axis('off')
-            if np.sum(H[:, var]) > 0:
+            if np.sum(H[:, var]) > 0 and var <= Nx - 1:
                 # prevent scatter() from rescaling axes
                 # plt.autoscale(False)
                 sc = axs[irow,icol].scatter(tobs, np.mean(y[H[:, var] > 0.], 0), 20, 'r', label='obs')
