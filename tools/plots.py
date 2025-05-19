@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import ticker
 from tools.diag import rmse_spread
+from scipy.stats import norm
 
 
 def plotL96(t, xt, nx, title):
@@ -926,3 +927,39 @@ def compare_covariances(Bt,Pbt,Lxx,lags,lim,cmap,title):
     axs[0,0].set_ylabel('Exact')
     axs[1,0].set_ylabel('Raw')
     axs[2,0].set_ylabel('Localized') 
+    
+def print_p():
+    print('ghgje')
+    
+def plotUniDensities(times,prop_sample):
+    '''
+    plot the evoloved densities with a Gaussian approximation overlayed
+
+    Parameters
+    ----------
+    times : interger array
+        timesteps to plot out the evolved sample.
+    prop_sample : array dimn n by t by sample_size
+        Sample evolved in time.
+
+    Returns
+    -------
+    None.
+
+    '''
+    f,a = plt.subplots(2,int(len(times)/2))
+    a = a.ravel()
+    for idx,ax in enumerate(a):
+        data = prop_sample[1,times[idx],:]
+        mu, std = norm.fit(data)
+        # Plot the histogram.
+        ax.hist(data, bins=20, density=True, alpha=0.6, color='b')
+        # Plot the PDF.
+        xmin, xmax = ax.get_xlim()
+        x = np.linspace(xmin, xmax, 100)
+        p = norm.pdf(x, mu, std)
+    
+        ax.plot(x, p, 'k', linewidth=2)
+        title = "time step: {:.0f}".format(times[idx])
+        ax.set_title(title)
+    plt.tight_layout()
