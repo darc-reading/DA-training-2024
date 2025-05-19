@@ -928,12 +928,12 @@ def compare_covariances(Bt,Pbt,Lxx,lags,lim,cmap,title):
     axs[1,0].set_ylabel('Raw')
     axs[2,0].set_ylabel('Localized') 
     
-def print_p():
-    print('ghgje')
+
     
-def plotUniDensities(times,prop_sample):
+def plotUniDensities(times,prop_sample,var1D):
     '''
-    plot the evoloved densities with a Gaussian approximation overlayed
+    plot the evoloved densities of one variable with a Gaussian approximation 
+    overlayed
 
     Parameters
     ----------
@@ -950,7 +950,7 @@ def plotUniDensities(times,prop_sample):
     f,a = plt.subplots(2,int(len(times)/2))
     a = a.ravel()
     for idx,ax in enumerate(a):
-        data = prop_sample[1,times[idx],:]
+        data = prop_sample[var1D,times[idx],:]
         mu, std = norm.fit(data)
         # Plot the histogram.
         ax.hist(data, bins=20, density=True, alpha=0.6, color='b')
@@ -963,3 +963,34 @@ def plotUniDensities(times,prop_sample):
         title = "time step: {:.0f}".format(times[idx])
         ax.set_title(title)
     plt.tight_layout()
+
+def plotMultiDensities(times,prop_sample,vars2D):
+    '''
+    plot the evoloved joint densities of two variable
+    
+    Parameters
+    ----------
+    times : interger array
+        timesteps to plot out the evolved sample.
+    prop_sample : array dimn n by t by sample_size
+        Sample evolved in time.
+    vars2D : array integers, length 2
+        Indices of variable to plot
+
+    Returns
+    -------
+    None.
+
+    '''
+    f,a = plt.subplots(2,int(len(times)/2))
+    a = a.ravel()
+    for idx,ax in enumerate(a):
+        data1 = prop_sample[vars2D[0],times[idx],:]
+        
+        data2 = prop_sample[vars2D[1],times[idx],:]
+        # Plot density.
+        ax.hist2d(data1,data2, bins=50,cmap = "Greens", )
+        title = "time step: {:.0f}".format(times[idx])
+        ax.set_title(title)
+    plt.tight_layout()
+    
